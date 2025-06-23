@@ -5,114 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>経費入力フォーム</title>
   <style>
-    <>
-      /* ▼▼▼ このstyleタグ全体をコピペしてください ▼▼▼ */
-      * {
-        box-sizing: border-box; /* レイアウト崩れを防ぐおまじない */
-      }
-      body { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
-        margin: 0; 
-        padding: 20px; 
-        background-color: #f4f4f9; 
-        color: #333; 
-      }
-      .container { 
-        max-width: 600px; 
-        margin: 0 auto; 
-        background: white; 
-        padding: 20px; 
-        border-radius: 8px; 
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-      }
-      h1 { 
-        text-align: center; 
-        color: #4a4a4a; 
-        margin-top: 0;
-      }
-      h2 {
-        border-bottom: 2px solid #f0f0f0;
-        padding-bottom: 10px;
-      }
-      .form-group { 
-        margin-bottom: 20px; 
-      }
-      label { 
-        display: block; 
-        margin-bottom: 8px; 
-        font-weight: bold; 
-      }
-      /* ページ全体のinputの基本スタイル */
-      input[type="text"], 
-      input[type="date"], 
-      input[type="number"] {
-        width: 100%; /* 全体の入力欄は幅100%に */
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-        line-height: 1.4; /* 文字が上下中央になるように高さを確保 */
-      }
-      
-      .item-row { 
-        display: flex; 
-        gap: 10px; 
-        margin-bottom: 10px; 
-        align-items: center; 
-      }
-      /* 品目リストの入力欄だけに適用するスタイル */
-      .item-row input {
-        flex: 1; /* これで入力欄が横に自動で伸びる */
-      }
-
-      .radio-group label { 
-        display: inline-block; 
-        margin-right: 20px; 
-        font-weight: normal;
-      }
-      button { 
-        display: block; 
-        width: 100%; 
-        padding: 12px; 
-        border: none; 
-        border-radius: 4px; 
-        font-size: 16px; 
-        font-weight: bold; 
-        cursor: pointer; 
-        transition: background-color 0.2s ease;
-      }
-      button:hover {
-        opacity: 0.9;
-      }
-      #add-item { 
-        background-color: #e8e8e8; 
-        color: #333; 
-        margin-bottom: 20px; 
-      }
-      #submit-btn { 
-        background-color: #00B900; 
-        color: white; 
-        font-size: 18px;
-      }
-      .remove-btn {
-      padding: 2px 2px; /* 少し小さく */
-      background-color: #e0e0e0; /* 他のボタンと色味を合わせる */
-      color: #333;
+    /* ▼▼▼ このstyleタグ全体で、既存のstyleタグを置き換えてください ▼▼▼ */
+    * {
+      box-sizing: border-box; /* レイアウト崩れを防ぐおまじない */
+    }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+      margin: 0; 
+      padding: 20px; 
+      background-color: #f4f4f9; 
+      color: #333; 
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      background: white; 
+      padding: 20px; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    }
+    h1, h2 {
+      text-align: center;
+      color: #4a4a4a;
+      margin-top: 0;
+    }
+    .form-group { 
+      margin-bottom: 20px; 
+    }
+    label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-weight: bold; 
+    }
+    
+    /* ページ全体のinputの基本スタイル */
+    input[type="text"], 
+    input[type="date"], 
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
       border: 1px solid #ccc;
-      border-radius: 4px;  /* ← 角を少しだけ丸める（ほぼ四角い印象に） */
-      cursor: pointer;
-      font-weight: normal; /* 太字をやめる */
-      line-height: 1.2;
-      flex-shrink: 0; /* ボタンが縮まないようにする */
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    
+    .item-row { 
+      display: flex; 
+      gap: 10px; 
+      margin-bottom: 10px; 
+      align-items: center; 
+    }
+    
+    /* ★★★ここが入力欄の幅を修正する最重要ポイント★★★ */
+    /* 品目リストの「品名」と「価格」の入力欄だけに適用するスタイル */
+    .item-row .product-name,
+    .item-row .price {
+      flex: 1; /* 横に伸びるように設定 */
+      min-width: 0; /* 縮みすぎるのを防ぐおまじない */
     }
 
-      #total-amount { 
-        text-align: right; 
-        font-size: 1.2em; 
-        font-weight: bold; 
-        margin-top: 20px; 
-        color: #007bff;
-      }
+    .radio-group label { 
+      display: inline-block; 
+      margin-right: 20px; 
+      font-weight: normal;
+    }
+    button { 
+      display: block; 
+      width: 100%; 
+      padding: 12px; 
+      border: none; 
+      border-radius: 4px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      transition: background-color 0.2s ease;
+    }
+    #add-item { 
+      background-color: #e8e8e8; 
+      color: #333; 
+      margin-bottom: 20px; 
+    }
+    #submit-btn { 
+      background-color: #00B900; 
+      color: white; 
+    }
+
+    /* ★★★ここが削除ボタンのサイズとデザインを修正するポイント★★★ */
+    .remove-btn {
+      flex-shrink: 0; /* ボタンが入力欄に押されて縮まないようにする */
+      width: 36px;    /* 幅を固定 */
+      height: 36px;   /* 高さを固定 */
+      padding: 0;     /* 内側の余白をなくす */
+      background-color: #fce8e6;
+      color: #c5221f;
+      border: 1px solid #f9bdbb;
+      border-radius: 4px; /* 角を少し丸める */
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #total-amount { 
+      text-align: right; 
+      font-size: 1.2em; 
+      font-weight: bold; 
+      margin-top: 20px; 
+    }
   </style>
 </head>
 <body>
@@ -132,7 +130,7 @@
 
       <h2>品目リスト</h2>
       <div id="items-container">
-        </div>
+      </div>
       <button type="button" id="add-item">+ 品目を追加</button>
 
       <div id="total-amount">合計: 0 円</div>
